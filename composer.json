@@ -1,0 +1,32 @@
+{
+    "name": "hughcube/package",
+    "description": "Package description here.",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "hugh.li",
+            "email": "hugh.li@foxmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.6",
+        "illuminate/container": "^5.1 || ^6.0 || ^7.0 || ^8.0"
+    },
+    "require-dev": {
+        "laravel/framework": "^8.0",
+        "laravel/lumen-framework": "^v8.0",
+        "friendsofphp/php-cs-fixer": "^2.16"
+    },
+    "autoload": {
+        "psr-4": {
+            "HughCube\\Package\\": "src"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "HughCube\\Package\\ServiceProvider"
+            ]
+        }
+    }
+}
