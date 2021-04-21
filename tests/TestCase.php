@@ -45,6 +45,6 @@ class TestCase extends OrchestraTestCase
         ]);
         $app->register(CacheServiceProvider::class);
 
-        $appConfig->set('captchaCode', (require_once dirname(__DIR__) . '/config/config.php'));
+        $appConfig->set('captchaCode', (require dirname(__DIR__) . '/config/config.php'));
     }
 }

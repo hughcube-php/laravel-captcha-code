@@ -6,12 +6,11 @@ return [
     'defaults' => [
         'storage' => [
             'driver' => 'cache',
-            'cache' => 'default',
         ],
         'generator' => [
             'driver' => 'default',
             'length' => 4,
-            //'string' => '0123456789',
+            'string' => env("CAPTCHA_CODE_GENERATOR_STRING"),
         ],
         'defaultTtl' => 10 * 60,
         'defaultCodes' => [

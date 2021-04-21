@@ -17,4 +17,9 @@ class CaptchaCodeTest extends TestCase
     {
         $this->assertInstanceOf(Manager::class, CaptchaCode::getFacadeRoot());
     }
+
+    public function testGetOrRand()
+    {
+      $this->assertNotNull(CaptchaCode::getOrRand(md5(serialize([__METHOD__, mt_rand()]))));
+    }
 }

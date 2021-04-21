@@ -27,11 +27,11 @@ class CaptchaCode extends IlluminateFacade
      */
     protected static function getFacadeAccessor()
     {
-        return self::class;
+        return 'captchaCode';
     }
 
     /**
-     * @param string   $key
+     * @param string $key
      * @param null|int $ttl
      *
      * @return string|null

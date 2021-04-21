@@ -45,6 +45,12 @@
 $ composer require hughcube/laravel-captcha-code -vvv
 ```
 
+## Configuration
+
+```shell
+$ php artisan vendor:publish --provider="HughCube\Laravel\CaptchaCode\ServiceProvider"
+```
+
 ## Usage
 
 TODO
