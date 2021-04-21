@@ -3,7 +3,7 @@
  * Created by PhpStorm.
  * User: hugh.li
  * Date: 2021/4/20
- * Time: 4:19 下午
+ * Time: 4:19 下午.
  */
 
 namespace HughCube\Laravel\CaptchaCode;
@@ -77,7 +77,6 @@ class Manager
      * @param string|null $name
      *
      * @return Store
-     *
      */
     protected function resolve($name = null)
     {
@@ -89,18 +88,21 @@ class Manager
         $ttl = Arr::get($config, 'defaultTtl', 10 * 60);
 
         $store = new Store($storage, $generator);
+
         return $store->withDefaultTtl($ttl)->withDefaultCodes($defaultCodes);
     }
 
     public function extendStorage($driver, Closure $callback)
     {
         $this->storageCustomCreators[$driver] = $callback;
+
         return $this;
     }
 
     /**
      * @param string $name
-     * @param array $config
+     * @param array  $config
+     *
      * @return Storage
      */
     protected function makeStorage($name, $config)
@@ -115,7 +117,7 @@ class Manager
             return call_user_func($this->storageCustomCreators[$driver], $config);
         }
 
-        $driverMethod = 'create' . ucfirst($driver) . 'StorageDriver';
+        $driverMethod = 'create'.ucfirst($driver).'StorageDriver';
         if (method_exists($this, $driverMethod)) {
             return $this->{$driverMethod}($config);
         }
@@ -125,6 +127,7 @@ class Manager
 
     /**
      * @param array $config
+     *
      * @return Storage
      */
     protected function createCacheStorageDriver($config)
@@ -138,12 +141,14 @@ class Manager
     public function extendGenerator($driver, Closure $callback)
     {
         $this->generatorCustomCreators[$driver] = $callback;
+
         return $this;
     }
 
     /**
      * @param string $name
-     * @param array $config
+     * @param array  $config
+     *
      * @return Generator
      */
     public function makeGenerator($name, $config)
@@ -158,7 +163,7 @@ class Manager
             return call_user_func($this->generatorCustomCreators[$driver], $config);
         }
 
-        $driverMethod = 'create' . ucfirst($driver) . 'GeneratorDriver';
+        $driverMethod = 'create'.ucfirst($driver).'GeneratorDriver';
         if (method_exists($this, $driverMethod)) {
             return $this->{$driverMethod}($config);
         }
@@ -170,6 +175,7 @@ class Manager
     {
         $length = Arr::get($config, 'length');
         $string = Arr::get($config, 'string');
+
         return new DefaultGenerator($length, $string);
     }
 
@@ -187,9 +193,10 @@ class Manager
      * Get the configuration for a client.
      *
      * @param string $name
-     * @return array
      *
      * @throws \InvalidArgumentException
+     *
+     * @return array
      */
     protected function configuration($name)
     {

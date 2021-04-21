@@ -3,14 +3,13 @@
  * Created by PhpStorm.
  * User: hugh.li
  * Date: 2021/4/20
- * Time: 11:36 下午
+ * Time: 11:36 下午.
  */
 
 namespace HughCube\Laravel\CaptchaCode\Tests;
 
 use HughCube\Laravel\CaptchaCode\ServiceProvider as CaptchaCodeServiceProvider;
 use Illuminate\Cache\CacheServiceProvider;
-use Illuminate\Support\Facades\Cache;
 use Orchestra\Testbench\TestCase as OrchestraTestCase;
 
 class TestCase extends OrchestraTestCase
@@ -27,7 +26,6 @@ class TestCase extends OrchestraTestCase
         ];
     }
 
-
     /**
      * @param \Illuminate\Foundation\Application $app
      */
@@ -38,16 +36,16 @@ class TestCase extends OrchestraTestCase
 
         $appConfig->set('cache', [
             'default' => 'default',
-            'stores' => [
+            'stores'  => [
                 'default' => [
                     'driver' => 'file',
-                    'path' => sprintf("/tmp/test/%s", md5(serialize([__METHOD__]))),
-                ]
-            ]
+                    'path'   => sprintf('/tmp/test/%s', md5(serialize([__METHOD__]))),
+                ],
+            ],
         ]);
         $app->register(CacheServiceProvider::class);
 
-        $appConfig->set("captchaCode", [
+        $appConfig->set('captchaCode', [
             'default' => 'default',
 
             'defaults' => [
@@ -58,13 +56,13 @@ class TestCase extends OrchestraTestCase
                     'driver' => 'default',
                     'length' => 8,
                 ],
-                'ttl' => 10 * 60,
+                'ttl'          => 10 * 60,
                 'defaultCodes' => [],
             ],
 
             'stores' => [
-                'default' => []
-            ]
+                'default' => [],
+            ],
         ]);
     }
 }

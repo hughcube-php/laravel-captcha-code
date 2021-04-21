@@ -3,7 +3,7 @@
  * Created by PhpStorm.
  * User: hugh.li
  * Date: 2021/4/18
- * Time: 10:32 下午
+ * Time: 10:32 下午.
  */
 
 namespace HughCube\Laravel\CaptchaCode;
@@ -19,7 +19,7 @@ class ServiceProvider extends IlluminateServiceProvider
      */
     public function boot()
     {
-        $source = realpath(dirname(__DIR__) . '/config/config.php');
+        $source = realpath(dirname(__DIR__).'/config/config.php');
 
         if ($this->app instanceof LaravelApplication && $this->app->runningInConsole()) {
             $this->publishes([$source => config_path('captchaCode.php')]);

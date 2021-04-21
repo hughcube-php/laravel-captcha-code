@@ -3,7 +3,7 @@
  * Created by PhpStorm.
  * User: hugh.li
  * Date: 2021/4/20
- * Time: 4:21 下午
+ * Time: 4:21 下午.
  */
 
 namespace HughCube\Laravel\CaptchaCode;
@@ -24,7 +24,7 @@ class Store
     protected $generator;
 
     /**
-     * @var integer
+     * @var int
      */
     protected $defaultTtl = 10 * 60;
 
@@ -35,7 +35,8 @@ class Store
 
     /**
      * Store constructor.
-     * @param Storage $storage
+     *
+     * @param Storage   $storage
      * @param Generator $generator
      */
     public function __construct(Storage $storage, Generator $generator)
@@ -45,17 +46,20 @@ class Store
     }
 
     /**
-     * @param integer $ttl
+     * @param int $ttl
+     *
      * @return $this
      */
     public function withDefaultTtl($ttl)
     {
         $this->defaultTtl = $ttl;
+
         return $this;
     }
 
     /**
      * @param string[] $items
+     *
      * @return $this
      */
     public function withDefaultCodes(array $items)
@@ -67,7 +71,8 @@ class Store
 
     /**
      * @param string $key
-     * @param integer $ttl
+     * @param int    $ttl
+     *
      * @return string
      */
     public function getOrRand($key, $ttl = null)
@@ -87,6 +92,7 @@ class Store
 
     /**
      * @param string $key
+     *
      * @return string|null
      */
     public function get($key)
@@ -98,9 +104,10 @@ class Store
     }
 
     /**
-     * @param string $key
+     * @param string      $key
      * @param null|string $code
-     * @param null|integer $ttl
+     * @param null|int    $ttl
+     *
      * @return string
      */
     public function set($key, $code, $ttl = null)
@@ -113,6 +120,7 @@ class Store
 
     /**
      * @param string $key
+     *
      * @return bool
      */
     public function delete($key)
@@ -123,9 +131,10 @@ class Store
     }
 
     /**
-     * @param mixed $key
+     * @param mixed  $key
      * @param string $code
-     * @param bool $deleteAfterSuccess
+     * @param bool   $deleteAfterSuccess
+     *
      * @return bool
      */
     public function validate($key, $code, $deleteAfterSuccess = true)
@@ -154,6 +163,7 @@ class Store
 
     /**
      * @param string $key
+     *
      * @return string
      */
     public function buildKey($key)
