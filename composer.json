@@ -10,7 +10,7 @@
     ],
     "require": {
         "php": "7.*|8.*",
-        "illuminate/support": "*"
+        "illuminate/support": ">=5.8"
     },
     "require-dev": {
         "laravel/framework": "*",
