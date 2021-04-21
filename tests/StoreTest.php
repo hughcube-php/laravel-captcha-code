@@ -45,15 +45,12 @@ class StoreTest extends TestCase
         $store->delete($key);
 
         $ttl = 5;
-        $code = $store->getOrRand($key, 5);
+        $code = $store->getOrRand($key, $ttl);
 
         $this->assertNotEmpty($code);
+        $this->assertSame($code, $store->getOrRand($key));
 
-        for ($i = 1; $i < $ttl; $i++) {
-            sleep(1);
-            $this->assertSame($code, $store->getOrRand($key));
-        }
-        sleep(1);
+        sleep($ttl);
         $this->assertNotSame($code, $store->getOrRand($key));
     }
 
@@ -65,15 +62,10 @@ class StoreTest extends TestCase
         $store->delete($key);
 
         $ttl = 5;
-        $code = $store->getOrRand($key, 5);
+        $code = $store->getOrRand($key, $ttl);
+        $this->assertSame($code, $store->get($key));
 
-        $this->assertNotEmpty($code);
-
-        for ($i = 1; $i < $ttl; $i++) {
-            sleep(1);
-            $this->assertSame($code, $store->get($key));
-        }
-        sleep(1);
+        sleep($ttl);
         $this->assertNull($store->get($key));
     }
 
@@ -94,6 +86,7 @@ class StoreTest extends TestCase
     {
         $key = serialize([__METHOD__, mt_rand()]);
         $store = $this->getStore();
+        $store->delete($key);
 
         $store->set($key, $key);
         $this->assertSame($store->get($key), $key);
@@ -107,8 +100,8 @@ class StoreTest extends TestCase
     {
         $key = serialize([__METHOD__, mt_rand()]);
         $store = $this->getStore();
-
         $store->delete($key);
+
         $code = $store->getOrRand($key);
         $this->assertTrue($store->validate($key, $code));
         $this->assertFalse($store->validate($key, $code));

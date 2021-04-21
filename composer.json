@@ -13,11 +13,11 @@
         "illuminate/support": "5.8.*|~6.0|~7.0|~8.0"
     },
     "require-dev": {
-        "laravel/framework": "5.8.*|~6.0|~7.0|~8.0",
-        "laravel/lumen-framework": "5.8.*|~6.0|~7.0|~8.0",
-        "squizlabs/php_codesniffer": "~2.0|~3.0",
-        "phpstan/phpstan": "~0.1",
-        "orchestra/testbench": "~3.0|~4.0|~5.0|~6.0"
+        "laravel/framework": "*",
+        "laravel/lumen-framework": "*",
+        "squizlabs/php_codesniffer": "*",
+        "phpstan/phpstan": "*",
+        "orchestra/testbench": "*"
     },
     "autoload": {
         "psr-4": {
