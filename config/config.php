@@ -10,9 +10,9 @@ return [
         'generator' => [
             'driver' => 'default',
             'length' => 4,
-            'string' => env("CAPTCHA_CODE_GENERATOR_STRING"),
+            'string' => env('CAPTCHA_CODE_GENERATOR_STRING'),
         ],
-        'defaultTtl' => 10 * 60,
+        'defaultTtl'   => 10 * 60,
         'defaultCodes' => [
             // 'test' => '8888',
         ],
