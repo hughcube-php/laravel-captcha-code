@@ -45,24 +45,6 @@ class TestCase extends OrchestraTestCase
         ]);
         $app->register(CacheServiceProvider::class);
 
-        $appConfig->set('captchaCode', [
-            'default' => 'default',
-
-            'defaults' => [
-                'storage' => [
-                    'driver' => 'cache',
-                ],
-                'generator' => [
-                    'driver' => 'default',
-                    'length' => 8,
-                ],
-                'ttl'          => 10 * 60,
-                'defaultCodes' => [],
-            ],
-
-            'stores' => [
-                'default' => [],
-            ],
-        ]);
+        $appConfig->set('captchaCode', (require_once dirname(__DIR__) . '/config/config.php'));
     }
 }

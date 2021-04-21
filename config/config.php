@@ -1,18 +1,25 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: hugh.li
- * Date: 2021/4/18
- * Time: 10:26 下午.
- */
 
 return [
-    //'default' => 'default',
+    'default' => 'default',
 
-    /*
-     * default item
-     */
-    //'defaults' => [],
+    'defaults' => [
+        'storage' => [
+            'driver' => 'cache',
+            'cache' => 'default',
+        ],
+        'generator' => [
+            'driver' => 'default',
+            'length' => 4,
+            //'string' => '0123456789',
+        ],
+        'defaultTtl' => 10 * 60,
+        'defaultCodes' => [
+            // 'test' => '8888',
+        ],
+    ],
 
-    //'stores' => ['default' => []]
+    'stores' => [
+        'default' => [],
+    ],
 ];
