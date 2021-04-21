@@ -18,3 +18,9 @@ trim_trailing_whitespace = true
 
 [*.md]
 trim_trailing_whitespace = false
+
+[*.php]
+insert_final_newline = true
+
+[*.yaml]
+indent_size = 2

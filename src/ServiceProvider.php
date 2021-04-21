@@ -6,7 +6,7 @@
  * Time: 10:32 下午
  */
 
-namespace HughCube\Package;
+namespace HughCube\Laravel\CaptchaCode;
 
 use Illuminate\Foundation\Application as LaravelApplication;
 use Illuminate\Support\ServiceProvider as IlluminateServiceProvider;
@@ -19,22 +19,13 @@ class ServiceProvider extends IlluminateServiceProvider
      */
     public function boot()
     {
-    }
-
-    /**
-     * Setup the config.
-     */
-    protected function setupConfig()
-    {
         $source = realpath(dirname(__DIR__) . '/config/config.php');
 
         if ($this->app instanceof LaravelApplication && $this->app->runningInConsole()) {
-            $this->publishes([$source => config_path('package.php')]);
+            $this->publishes([$source => config_path('captchaCode.php')]);
         } elseif ($this->app instanceof LumenApplication) {
-            $this->app->configure('package');
+            $this->app->configure('captchaCode');
         }
-
-        $this->mergeConfigFrom($source, 'package');
     }
 
     /**
@@ -42,12 +33,12 @@ class ServiceProvider extends IlluminateServiceProvider
      */
     public function register()
     {
-        $this->setupConfig();
-
         $this->app->singleton(
-            Package::class,
+            CaptchaCode::class,
             function ($app) {
-                $config = $app->make('config')->get('package', []);
+                $config = $app->make('config')->get('captchaCode', []);
+
+                return new Manager($config);
             }
         );
     }

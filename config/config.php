@@ -14,5 +14,5 @@ return [
      */
     //'defaults' => [],
 
-    //'clients' => ['default' => []]
+    //'stores' => ['default' => []]
 ];
