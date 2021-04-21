@@ -22,19 +22,19 @@
     <a href="https://github.com/hughcube-php/laravel-captcha-code">
         <img src="https://img.shields.io/badge/php-%3E%3D%207.0-8892BF.svg" alt="PHP Versions Supported">
     </a>
-    <a href="https://packagist.org/packages/hughcube-php/laravel-captcha-code">
+    <a href="https://packagist.org/packages/hughcube/laravel-captcha-code">
         <img src="https://poser.pugx.org/hughcube-php/laravel-captcha-code/version" alt="Latest Stable Version">
     </a>
-    <a href="https://packagist.org/packages/hughcube-php/laravel-captcha-code">
+    <a href="https://packagist.org/packages/hughcube/laravel-captcha-code">
         <img src="https://poser.pugx.org/hughcube-php/laravel-captcha-code/downloads" alt="Total Downloads">
     </a>
     <a href="https://github.com/hughcube-php/laravel-captcha-code/blob/master/LICENSE">
         <img src="https://img.shields.io/badge/license-MIT-428f7e.svg" alt="License">
     </a>
-    <a href="https://packagist.org/packages/hughcube-php/laravel-captcha-code">
+    <a href="https://packagist.org/packages/hughcube/laravel-captcha-code">
         <img src="https://poser.pugx.org/hughcube-php/laravel-captcha-code/v/unstable" alt="Latest Unstable Version">
     </a>
-    <a href="https://packagist.org/packages/hughcube-php/laravel-captcha-code">
+    <a href="https://packagist.org/packages/hughcube/laravel-captcha-code">
         <img src="https://poser.pugx.org/hughcube-php/laravel-captcha-code/composerlock" alt="composer.lock available">
     </a>
 </p>
