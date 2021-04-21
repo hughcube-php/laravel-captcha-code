@@ -42,7 +42,7 @@
 ## Installing
 
 ```shell
-$ composer require hughcube/package -vvv
+$ composer require hughcube/laravel-captcha-code -vvv
 ```
 
 ## Usage
