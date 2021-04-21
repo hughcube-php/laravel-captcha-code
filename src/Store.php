@@ -37,7 +37,6 @@ class Store
      * Store constructor.
      * @param Storage $storage
      * @param Generator $generator
-     * @param integer $ttl
      */
     public function __construct(Storage $storage, Generator $generator)
     {
@@ -68,7 +67,7 @@ class Store
 
     /**
      * @param string $key
-     * @param boolean $reset
+     * @param integer $ttl
      * @return string
      */
     public function getOrRand($key, $ttl = null)
@@ -87,7 +86,7 @@ class Store
     }
 
     /**
-     * @param $key
+     * @param string $key
      * @return string|null
      */
     public function get($key)

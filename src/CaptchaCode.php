@@ -30,8 +30,7 @@ class CaptchaCode extends IlluminateFacade
     }
 
     /**
-     * @param $key
-     * @param null|string $code
+     * @param string $key
      * @param null|integer $ttl
      * @return string|null
      */
