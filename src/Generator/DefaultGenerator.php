@@ -3,7 +3,7 @@
  * Created by PhpStorm.
  * User: hugh.li
  * Date: 2021/4/20
- * Time: 5:19 下午
+ * Time: 5:19 下午.
  */
 
 namespace HughCube\Laravel\CaptchaCode\Generator;
@@ -11,7 +11,7 @@ namespace HughCube\Laravel\CaptchaCode\Generator;
 class DefaultGenerator implements Generator
 {
     /**
-     * ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789
+     * ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789.
      *
      * @var string
      */
@@ -34,7 +34,7 @@ class DefaultGenerator implements Generator
      */
     public function get()
     {
-        $code = "";
+        $code = '';
         for ($i = 1; $i <= $this->length; $i++) {
             $index = mt_rand(0, $this->maxIndex);
             $code .= $this->string[$index];

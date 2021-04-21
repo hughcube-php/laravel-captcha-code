@@ -3,7 +3,7 @@
  * Created by PhpStorm.
  * User: hugh.li
  * Date: 2021/4/20
- * Time: 11:45 下午
+ * Time: 11:45 下午.
  */
 
 namespace HughCube\Laravel\CaptchaCode\Tests;
@@ -26,11 +26,11 @@ class ManagerTest extends TestCase
         $manager = new Manager($config);
 
         $this->assertInstanceOf(Store::class, $manager->store());
-        $this->assertInstanceOf(Store::class, $manager->store("default"));
+        $this->assertInstanceOf(Store::class, $manager->store('default'));
 
         try {
             $manager->store(md5(serialize([__METHOD__, mt_rand()])));
-            $this->fail("Expected Exception has not been raised.");
+            $this->fail('Expected Exception has not been raised.');
         } catch (Throwable $e) {
             $this->assertInstanceOf(Throwable::class, $e);
         }
@@ -45,14 +45,14 @@ class ManagerTest extends TestCase
         $manager = new Manager($config);
 
         $storage = $this->createMock(Storage::class);
-        $manager->extendStorage("cache", function () use ($storage) {
+        $manager->extendStorage('cache', function () use ($storage) {
             return $storage;
         });
 
         $store = $manager->store();
 
         $reflection = new ReflectionClass($store);
-        $property = $reflection->getProperty("storage");
+        $property = $reflection->getProperty('storage');
         $property->setAccessible(true);
 
         $this->assertSame($storage, $property->getValue($store));
@@ -67,14 +67,14 @@ class ManagerTest extends TestCase
         $manager = new Manager($config);
 
         $generator = $this->createMock(Generator::class);
-        $manager->extendGenerator("default", function () use ($generator) {
+        $manager->extendGenerator('default', function () use ($generator) {
             return $generator;
         });
 
         $store = $manager->store();
 
         $reflection = new ReflectionClass($store);
-        $property = $reflection->getProperty("generator");
+        $property = $reflection->getProperty('generator');
         $property->setAccessible(true);
 
         $this->assertSame($generator, $property->getValue($store));
@@ -88,16 +88,16 @@ class ManagerTest extends TestCase
         return [
             [
                 [
-                    'default' => 'default',
+                    'default'  => 'default',
                     'defaults' => [
-                        'storage' => ['driver' => 'cache',],
-                        'generator' => ['driver' => 'default', 'length' => 8,],
-                        'ttl' => 10 * 60,
+                        'storage'      => ['driver' => 'cache'],
+                        'generator'    => ['driver' => 'default', 'length' => 8],
+                        'ttl'          => 10 * 60,
                         'defaultCodes' => [],
                     ],
-                    'stores' => ['default' => []]
-                ]
-            ]
+                    'stores' => ['default' => []],
+                ],
+            ],
         ];
     }
 }

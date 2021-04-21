@@ -3,7 +3,7 @@
  * Created by PhpStorm.
  * User: hugh.li
  * Date: 2021/4/20
- * Time: 11:36 下午
+ * Time: 11:36 下午.
  */
 
 namespace HughCube\Laravel\CaptchaCode\Tests;
@@ -35,7 +35,7 @@ class StoreTest extends TestCase
         $store = $this->getStore()->withDefaultCodes([$key => '888888']);
         $store->delete($key);
 
-        $this->assertSame($store->getOrRand($key), "888888");
+        $this->assertSame($store->getOrRand($key), '888888');
     }
 
     public function testGetOrRand()
@@ -54,7 +54,6 @@ class StoreTest extends TestCase
         $this->assertNotSame($code, $store->getOrRand($key));
     }
 
-
     public function testGet()
     {
         $key = serialize([__METHOD__, mt_rand()]);
@@ -68,7 +67,6 @@ class StoreTest extends TestCase
         sleep($ttl);
         $this->assertNull($store->get($key));
     }
-
 
     public function testSet()
     {
@@ -95,7 +93,6 @@ class StoreTest extends TestCase
         $this->assertNull($store->get($key));
     }
 
-
     public function testValidate()
     {
         $key = serialize([__METHOD__, mt_rand()]);
@@ -113,9 +110,8 @@ class StoreTest extends TestCase
 
         $store->delete($key);
         $code = $store->getOrRand($key);
-        $this->assertFalse($store->validate($key, $code . "---"));
+        $this->assertFalse($store->validate($key, $code.'---'));
     }
-
 
     protected function getStore()
     {
