@@ -3,7 +3,7 @@
  * Created by PhpStorm.
  * User: hugh.li
  * Date: 2021/4/20
- * Time: 8:49 下午
+ * Time: 8:49 下午.
  */
 
 namespace HughCube\Laravel\CaptchaCode\Tests\Generator;

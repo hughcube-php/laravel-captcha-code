@@ -3,7 +3,7 @@
  * Created by PhpStorm.
  * User: hugh.li
  * Date: 2021/4/18
- * Time: 10:31 下午
+ * Time: 10:31 下午.
  */
 
 namespace HughCube\Laravel\CaptchaCode;
@@ -12,7 +12,8 @@ use Closure;
 use Illuminate\Support\Facades\Facade as IlluminateFacade;
 
 /**
- * Class CaptchaCode
+ * Class CaptchaCode.
+ *
  * @method static Store store(string $name = null)
  * @method static Manager extendGenerator($driver, Closure $callback)
  * @method static Manager extendStorage($driver, Closure $callback)
@@ -30,8 +31,9 @@ class CaptchaCode extends IlluminateFacade
     }
 
     /**
-     * @param string $key
-     * @param null|integer $ttl
+     * @param string   $key
+     * @param null|int $ttl
+     *
      * @return string|null
      */
     public static function getOrRand($key, $ttl = null)
