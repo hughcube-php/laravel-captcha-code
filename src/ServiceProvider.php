@@ -33,13 +33,8 @@ class ServiceProvider extends IlluminateServiceProvider
      */
     public function register()
     {
-        $this->app->singleton(
-            'captchaCode',
-            function ($app) {
-                $config = $app->make('config')->get('captchaCode', []);
-
-                return new Manager($config);
-            }
-        );
+        $this->app->singleton(CaptchaCode::getFacadeAccessor(), function ($app) {
+            return new Manager();
+        });
     }
 }

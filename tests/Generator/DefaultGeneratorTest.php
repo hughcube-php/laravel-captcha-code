@@ -28,7 +28,7 @@ class DefaultGeneratorTest extends TestCase
         }
     }
 
-    protected function getGenerator($length = null)
+    protected function getGenerator($length = null): DefaultGenerator
     {
         return new DefaultGenerator($length, null);
     }

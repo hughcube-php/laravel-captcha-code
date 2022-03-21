@@ -13,5 +13,5 @@ interface Generator
     /**
      * @return string
      */
-    public function get();
+    public function get(): string;
 }

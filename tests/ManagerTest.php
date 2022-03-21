@@ -13,17 +13,14 @@ use HughCube\Laravel\CaptchaCode\Manager;
 use HughCube\Laravel\CaptchaCode\Storage\Storage;
 use HughCube\Laravel\CaptchaCode\Store;
 use ReflectionClass;
+use ReflectionException;
 use Throwable;
 
 class ManagerTest extends TestCase
 {
-    /**
-     * @dataProvider managerConfigProvider
-     */
-    public function testStore($config)
+    public function testStore()
     {
-        /** @var Manager $manager */
-        $manager = new Manager($config);
+        $manager = new Manager();
 
         $this->assertInstanceOf(Store::class, $manager->store());
         $this->assertInstanceOf(Store::class, $manager->store('default'));
@@ -37,12 +34,11 @@ class ManagerTest extends TestCase
     }
 
     /**
-     * @dataProvider managerConfigProvider
+     * @throws ReflectionException
      */
-    public function testExtendStorage($config)
+    public function testExtendStorage()
     {
-        /** @var Manager $manager */
-        $manager = new Manager($config);
+        $manager = new Manager();
 
         $storage = $this->createMock(Storage::class);
         $manager->extendStorage('cache', function () use ($storage) {
@@ -58,13 +54,13 @@ class ManagerTest extends TestCase
         $this->assertSame($storage, $property->getValue($store));
     }
 
+
     /**
-     * @dataProvider managerConfigProvider
+     * @throws ReflectionException
      */
-    public function testExtendGenerator($config)
+    public function testExtendGenerator()
     {
-        /** @var Manager $manager */
-        $manager = new Manager($config);
+        $manager = new Manager();
 
         $generator = $this->createMock(Generator::class);
         $manager->extendGenerator('default', function () use ($generator) {
@@ -78,26 +74,5 @@ class ManagerTest extends TestCase
         $property->setAccessible(true);
 
         $this->assertSame($generator, $property->getValue($store));
-    }
-
-    /**
-     * @return array[]
-     */
-    public function managerConfigProvider()
-    {
-        return [
-            [
-                [
-                    'default'  => 'default',
-                    'defaults' => [
-                        'storage'      => ['driver' => 'cache'],
-                        'generator'    => ['driver' => 'default', 'length' => 8],
-                        'ttl'          => 10 * 60,
-                        'defaultCodes' => [],
-                    ],
-                    'stores' => ['default' => []],
-                ],
-            ],
-        ];
     }
 }

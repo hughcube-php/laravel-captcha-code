@@ -32,7 +32,7 @@ class DefaultGenerator implements Generator
     /**
      * @inheritDoc
      */
-    public function get()
+    public function get(): string
     {
         $code = '';
         for ($i = 1; $i <= $this->length; $i++) {

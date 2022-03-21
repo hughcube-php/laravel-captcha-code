@@ -10,12 +10,14 @@ namespace HughCube\Laravel\CaptchaCode\Tests;
 
 use HughCube\Laravel\CaptchaCode\ServiceProvider as CaptchaCodeServiceProvider;
 use Illuminate\Cache\CacheServiceProvider;
+use Illuminate\Config\Repository;
+use Illuminate\Foundation\Application;
 use Orchestra\Testbench\TestCase as OrchestraTestCase;
 
 class TestCase extends OrchestraTestCase
 {
     /**
-     * @param \Illuminate\Foundation\Application $app
+     * @param Application $app
      *
      * @return array
      */
@@ -27,11 +29,11 @@ class TestCase extends OrchestraTestCase
     }
 
     /**
-     * @param \Illuminate\Foundation\Application $app
+     * @param Application $app
      */
     protected function getEnvironmentSetUp($app)
     {
-        /** @var \Illuminate\Config\Repository $appConfig */
+        /** @var Repository $appConfig */
         $appConfig = $app['config'];
 
         $appConfig->set('cache', [

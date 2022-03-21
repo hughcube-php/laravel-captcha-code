@@ -36,8 +36,8 @@ class Store
     /**
      * Store constructor.
      *
-     * @param Storage   $storage
-     * @param Generator $generator
+     * @param  Storage  $storage
+     * @param  Generator  $generator
      */
     public function __construct(Storage $storage, Generator $generator)
     {
@@ -45,108 +45,58 @@ class Store
         $this->generator = $generator;
     }
 
-    /**
-     * @param int $ttl
-     *
-     * @return $this
-     */
-    public function withDefaultTtl($ttl)
+    public function withDefaultTtl(int $ttl): Store
     {
         $this->defaultTtl = $ttl;
 
         return $this;
     }
 
-    /**
-     * @param string[] $items
-     *
-     * @return $this
-     */
-    public function withDefaultCodes(array $items)
+    public function withDefaultCodes(array $items): Store
     {
         $this->defaultCodes = $items;
-
         return $this;
     }
 
-    /**
-     * @param string $key
-     * @param int    $ttl
-     *
-     * @return string
-     */
-    public function getOrRand($key, $ttl = null)
+    public function getOrRand(string $key, int $ttl = null)
     {
         if (null != ($existCode = $this->get($key))) {
             return $existCode;
         }
 
-        if (isset($this->defaultCodes[$key])) {
-            $code = $this->defaultCodes[$key];
-        } else {
-            $code = $this->generator->get();
+        $code = $this->defaultCodes[$key] ?? $this->generator->get();
+        if (!$this->set($key, $code, $ttl)) {
+            return false;
         }
-
-        return $this->set($key, $code, $ttl);
-    }
-
-    /**
-     * @param string $key
-     *
-     * @return string|null
-     */
-    public function get($key)
-    {
-        $key = $this->buildKey($key);
-        $code = $this->storage->get($key);
-
-        return empty($code) ? null : $code;
-    }
-
-    /**
-     * @param string      $key
-     * @param null|string $code
-     * @param null|int    $ttl
-     *
-     * @return string
-     */
-    public function set($key, $code, $ttl = null)
-    {
-        $ttl = null === $ttl ? $this->defaultTtl : $ttl;
-        $this->storage->set($key, $code, $ttl);
 
         return $code;
     }
 
-    /**
-     * @param string $key
-     *
-     * @return bool
-     */
-    public function delete($key)
+    public function get(string $key)
     {
         $key = $this->buildKey($key);
+        return $this->storage->get($key) ?: null;
+    }
 
+    public function set(string $key, string $code, int $ttl = null)
+    {
+        $ttl = null === $ttl ? $this->defaultTtl : $ttl;
+        return $this->storage->set($key, $code, $ttl);
+    }
+
+    public function delete(string $key): bool
+    {
+        $key = $this->buildKey($key);
         return $this->storage->delete($key);
     }
 
-    /**
-     * @param mixed  $key
-     * @param string $code
-     * @param bool   $deleteAfterSuccess
-     *
-     * @return bool
-     */
-    public function validate($key, $code, $deleteAfterSuccess = true)
+    public function validate(string $key, $code, bool $deleteAfterSuccess = true): bool
     {
-        $key = $this->buildKey($key);
-
         if (empty($code)) {
             return false;
         }
 
-        $existCode = $this->storage->get($key);
-        if (empty($existCode)) {
+        if (empty($existCode = $this->get($key))) {
             return false;
         }
 
@@ -162,11 +112,10 @@ class Store
     }
 
     /**
-     * @param string $key
-     *
+     * @param  string  $key
      * @return string
      */
-    public function buildKey($key)
+    public function buildKey(string $key): string
     {
         return $key;
     }

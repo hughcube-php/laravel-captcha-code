@@ -11,12 +11,13 @@ namespace HughCube\Laravel\CaptchaCode\Tests\Storage;
 use HughCube\Laravel\CaptchaCode\Storage\CacheStorage;
 use HughCube\Laravel\CaptchaCode\Storage\Storage;
 use HughCube\Laravel\CaptchaCode\Tests\TestCase;
+use Illuminate\Contracts\Cache\Repository;
 
 class CacheStorageTest extends TestCase
 {
     public function testIsStorage()
     {
-        $cache = $this->createMock(\Illuminate\Contracts\Cache\Repository::class);
+        $cache = $this->createMock(Repository::class);
         $storage = new CacheStorage($cache);
 
         $this->assertInstanceOf(Storage::class, $storage);

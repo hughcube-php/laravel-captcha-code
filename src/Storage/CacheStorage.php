@@ -9,6 +9,7 @@
 namespace HughCube\Laravel\CaptchaCode\Storage;
 
 use Psr\SimpleCache\CacheInterface;
+use Psr\SimpleCache\InvalidArgumentException;
 
 class CacheStorage implements Storage
 {
@@ -22,13 +23,14 @@ class CacheStorage implements Storage
     /**
      * save a code.
      *
-     * @param string $key
-     * @param string $code
-     * @param null   $ttl
+     * @param  string  $key
+     * @param  string  $code
+     * @param  null  $ttl
      *
-     * @return mixed
+     * @return bool
+     * @throws InvalidArgumentException
      */
-    public function set($key, $code, $ttl = null)
+    public function set(string $key, string $code, $ttl = null): bool
     {
         return $this->cache->set($key, $code, $ttl);
     }
@@ -36,11 +38,12 @@ class CacheStorage implements Storage
     /**
      * Fetches a code.
      *
-     * @param string $key
+     * @param  string  $key
      *
-     * @return string|null
+     * @return mixed
+     * @throws InvalidArgumentException
      */
-    public function get($key)
+    public function get(string $key)
     {
         return $this->cache->get($key);
     }
@@ -48,11 +51,12 @@ class CacheStorage implements Storage
     /**
      * Remove a code.
      *
-     * @param string $key
+     * @param  string  $key
      *
      * @return bool
+     * @throws InvalidArgumentException
      */
-    public function delete($key)
+    public function delete(string $key): bool
     {
         return $this->cache->delete($key);
     }

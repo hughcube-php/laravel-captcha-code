@@ -17,6 +17,12 @@ use Illuminate\Support\Facades\Facade as IlluminateFacade;
  * @method static Store store(string $name = null)
  * @method static Manager extendGenerator($driver, Closure $callback)
  * @method static Manager extendStorage($driver, Closure $callback)
+ *
+ * @method static string getOrRand(string $key, int $ttl = null)
+ * @method static null|string get(string $key)
+ * @method static bool set(string $key, string $code, int $ttl = null)
+ * @method static bool delete(string $key)
+ * @method static bool validate(string $key, string $code, bool $deleteAfterSuccess = true)
  */
 class CaptchaCode extends IlluminateFacade
 {
@@ -25,39 +31,8 @@ class CaptchaCode extends IlluminateFacade
      *
      * @return string
      */
-    protected static function getFacadeAccessor()
+    public static function getFacadeAccessor(): string
     {
         return 'captchaCode';
-    }
-
-    /**
-     * @param string   $key
-     * @param null|int $ttl
-     *
-     * @return string|null
-     */
-    public static function getOrRand($key, $ttl = null)
-    {
-        return static::store()->getOrRand($key, $ttl);
-    }
-
-    public static function get($key)
-    {
-        return static::store()->get($key);
-    }
-
-    public static function set($key, $code, $ttl = null)
-    {
-        return static::store()->set($key, $code, $ttl);
-    }
-
-    public static function delete($key)
-    {
-        return static::store()->delete($key);
-    }
-
-    public static function validate($key, $code, $deleteAfterSuccess = true)
-    {
-        return static::store()->validate($key, $code, $deleteAfterSuccess);
     }
 }

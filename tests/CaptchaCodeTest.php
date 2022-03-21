@@ -20,6 +20,10 @@ class CaptchaCodeTest extends TestCase
 
     public function testGetOrRand()
     {
-        $this->assertNotNull(CaptchaCode::getOrRand(md5(serialize([__METHOD__, mt_rand()]))));
+        $key = md5(serialize([__METHOD__, mt_rand()]));
+        $code = CaptchaCode::getOrRand($key);
+
+        $this->assertNotNull($code);
+        $this->assertSame($code, CaptchaCode::getOrRand($key));
     }
 }

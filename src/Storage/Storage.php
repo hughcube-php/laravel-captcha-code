@@ -13,29 +13,29 @@ interface Storage
     /**
      * save a code.
      *
-     * @param string $key
-     * @param string $code
+     * @param  string  $key
+     * @param  string  $code
      * @param null   $ttl
      *
      * @return mixed
      */
-    public function set($key, $code, $ttl = null);
+    public function set(string $key, string $code, $ttl = null);
 
     /**
      * Fetches a code.
      *
-     * @param string $key
+     * @param  string  $key
      *
      * @return string|null
      */
-    public function get($key);
+    public function get(string $key);
 
     /**
      * Remove a code.
      *
-     * @param string $key
+     * @param  string  $key
      *
      * @return bool
      */
-    public function delete($key);
+    public function delete(string $key): bool;
 }
