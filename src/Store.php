@@ -10,6 +10,7 @@ namespace HughCube\Laravel\CaptchaCode;
 
 use HughCube\Laravel\CaptchaCode\Generator\Generator;
 use HughCube\Laravel\CaptchaCode\Storage\Storage;
+use Illuminate\Support\Str;
 
 class Store
 {
@@ -58,13 +59,28 @@ class Store
         return $this;
     }
 
+    public function buildKey(string $key): string
+    {
+        return $key;
+    }
+
+    public function getDefaultCode(string $key)
+    {
+        foreach ($this->defaultCodes as $pattern => $code) {
+            if (Str::is($pattern, $key)) {
+                return $code;
+            }
+        }
+        return null;
+    }
+
     public function getOrRand(string $key, int $ttl = null)
     {
         if (null != ($existCode = $this->get($key))) {
             return $existCode;
         }
 
-        $code = $this->defaultCodes[$key] ?? $this->generator->get();
+        $code = $this->getDefaultCode($key) ?? $this->generator->get();
         if (!$this->set($key, $code, $ttl)) {
             return false;
         }
@@ -109,14 +125,5 @@ class Store
         }
 
         return true;
-    }
-
-    /**
-     * @param  string  $key
-     * @return string
-     */
-    public function buildKey(string $key): string
-    {
-        return $key;
     }
 }
