@@ -32,7 +32,7 @@ class CacheStorage implements Storage
      */
     public function set(string $key, string $code, $ttl = null): bool
     {
-        return $this->cache->set($key, $code, $ttl);
+        return false !== $this->cache->set($key, $code, $ttl);
     }
 
     /**
