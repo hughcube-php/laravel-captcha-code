@@ -13,8 +13,8 @@ interface Storage
     /**
      * save a code.
      *
-     * @param  string  $key
-     * @param  string  $code
+     * @param string $key
+     * @param string $code
      * @param null   $ttl
      *
      * @return mixed
@@ -24,7 +24,7 @@ interface Storage
     /**
      * Fetches a code.
      *
-     * @param  string  $key
+     * @param string $key
      *
      * @return string|null
      */
@@ -33,7 +33,7 @@ interface Storage
     /**
      * Remove a code.
      *
-     * @param  string  $key
+     * @param string $key
      *
      * @return bool
      */

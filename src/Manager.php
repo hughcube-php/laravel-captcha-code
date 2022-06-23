@@ -31,7 +31,8 @@ class Manager extends \HughCube\Laravel\ServiceSupport\Manager
     /**
      * Get a client by name.
      *
-     * @param  string|null|integer  $name
+     * @param string|null|int $name
+     *
      * @return Store
      */
     public function store($name = null): Store
@@ -42,18 +43,19 @@ class Manager extends \HughCube\Laravel\ServiceSupport\Manager
     public function extendStorage($driver, Closure $callback): Manager
     {
         $this->storageCustomCreators[$driver] = $callback;
+
         return $this;
     }
 
     /**
-     * @param  array  $config
+     * @param array $config
      *
      * @return Storage
      */
     protected function makeStorage(array $config): Storage
     {
         if (empty($driver = $config['driver'] ?? 'cache')) {
-            throw new InvalidArgumentException("The store drive must be defined.");
+            throw new InvalidArgumentException('The store drive must be defined.');
         }
 
         if (isset($this->storageCustomCreators[$driver])) {
@@ -69,7 +71,7 @@ class Manager extends \HughCube\Laravel\ServiceSupport\Manager
     }
 
     /**
-     * @param  array  $config
+     * @param array $config
      *
      * @return Storage
      */
@@ -89,14 +91,14 @@ class Manager extends \HughCube\Laravel\ServiceSupport\Manager
     }
 
     /**
-     * @param  array  $config
+     * @param array $config
      *
      * @return Generator
      */
     public function makeGenerator(array $config): Generator
     {
         if (empty(($driver = $config['driver'] ?? 'default'))) {
-            throw new InvalidArgumentException("The generator drive must be defined.");
+            throw new InvalidArgumentException('The generator drive must be defined.');
         }
 
         if (isset($this->generatorCustomCreators[$driver])) {
