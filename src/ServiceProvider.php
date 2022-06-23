@@ -8,33 +8,18 @@
 
 namespace HughCube\Laravel\CaptchaCode;
 
-use Illuminate\Foundation\Application as LaravelApplication;
-use Illuminate\Support\ServiceProvider as IlluminateServiceProvider;
-use Laravel\Lumen\Application as LumenApplication;
-
-class ServiceProvider extends IlluminateServiceProvider
+class ServiceProvider extends \HughCube\Laravel\ServiceSupport\ServiceProvider
 {
-    /**
-     * Boot the provider.
-     */
-    public function boot()
+    protected function getFacadeAccessor(): string
     {
-        $source = realpath(dirname(__DIR__).'/config/config.php');
-
-        if ($this->app instanceof LaravelApplication && $this->app->runningInConsole()) {
-            $this->publishes([$source => config_path('captchaCode.php')]);
-        } elseif ($this->app instanceof LumenApplication) {
-            $this->app->configure('captchaCode');
-        }
+        return CaptchaCode::getFacadeAccessor();
     }
 
     /**
-     * Register the provider.
+     * @inheritDoc
      */
-    public function register()
+    protected function createFacadeRoot($app)
     {
-        $this->app->singleton(CaptchaCode::getFacadeAccessor(), function ($app) {
-            return new Manager();
-        });
+        return new Manager();
     }
 }

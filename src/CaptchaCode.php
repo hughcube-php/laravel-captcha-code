@@ -9,7 +9,7 @@
 namespace HughCube\Laravel\CaptchaCode;
 
 use Closure;
-use Illuminate\Support\Facades\Facade as IlluminateFacade;
+use HughCube\Laravel\ServiceSupport\LazyFacade;
 
 /**
  * Class CaptchaCode.
@@ -24,7 +24,7 @@ use Illuminate\Support\Facades\Facade as IlluminateFacade;
  * @method static bool delete(string $key)
  * @method static bool validate(string $key, string $code, bool $deleteAfterSuccess = true)
  */
-class CaptchaCode extends IlluminateFacade
+class CaptchaCode extends LazyFacade
 {
     /**
      * Get the registered name of the component.
@@ -34,5 +34,11 @@ class CaptchaCode extends IlluminateFacade
     public static function getFacadeAccessor(): string
     {
         return 'captchaCode';
+    }
+
+
+    protected static function registerServiceProvider($app)
+    {
+        $app->register(ServiceProvider::class);
     }
 }

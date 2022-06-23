@@ -10,7 +10,7 @@
     ],
     "require": {
         "php": "7.*|8.*",
-        "illuminate/support": "*"
+        "hughcube/laravel-service-support": "*"
     },
     "require-dev": {
         "laravel/framework": "*",
@@ -27,13 +27,6 @@
     "autoload-dev": {
         "psr-4": {
             "HughCube\\Laravel\\CaptchaCode\\Tests\\": "tests"
-        }
-    },
-    "extra": {
-        "laravel": {
-            "providers": [
-                "HughCube\\Laravel\\CaptchaCode\\ServiceProvider"
-            ]
         }
     },
     "scripts": {
