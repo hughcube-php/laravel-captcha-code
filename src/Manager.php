@@ -13,14 +13,10 @@ use HughCube\Laravel\CaptchaCode\Generator\DefaultGenerator;
 use HughCube\Laravel\CaptchaCode\Generator\Generator;
 use HughCube\Laravel\CaptchaCode\Storage\CacheStorage;
 use HughCube\Laravel\CaptchaCode\Storage\Storage;
-use Illuminate\Container\Container as IlluminateContainer;
-use Illuminate\Contracts\Config\Repository;
-use Illuminate\Contracts\Container\Container as ContainerContract;
 use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Manager as IlluminateManager;
 use InvalidArgumentException;
 
-class Manager extends IlluminateManager
+class Manager extends \HughCube\Laravel\ServiceSupport\Manager
 {
     /**
      * @var Closure[]
@@ -33,99 +29,6 @@ class Manager extends IlluminateManager
     protected $generatorCustomCreators = [];
 
     /**
-     * @param  callable|ContainerContract|null  $container
-     */
-    public function __construct($container = null)
-    {
-        $this->container = $container;
-    }
-
-    /**
-     * @return ContainerContract
-     */
-    public function getContainer(): ContainerContract
-    {
-        if (!property_exists($this, 'container') || null === $this->container) {
-            return IlluminateContainer::getInstance();
-        }
-
-        if (is_callable($this->container)) {
-            $this->container = call_user_func($this->container);
-        }
-
-        return $this->container;
-    }
-
-    /**
-     * @return Repository
-     *
-     * @throws
-     * @phpstan-ignore-next-line
-     */
-    protected function getConfig(): Repository
-    {
-        if (!property_exists($this, 'config') || null === $this->config) {
-            return $this->getContainer()->make('config');
-        }
-
-        if (is_callable($this->config)) {
-            $this->config = call_user_func($this->config);
-        }
-
-        return $this->config;
-    }
-
-    /**
-     * @param  null|string|int  $name
-     * @param  mixed  $default
-     * @return array|mixed
-     */
-    protected function getPackageConfig($name = null, $default = null)
-    {
-        $key = sprintf('%s.%s', CaptchaCode::getFacadeAccessor(), $name);
-
-        return $this->getConfig()->get($key, $default);
-    }
-
-    /**
-     * @return array
-     */
-    protected function getStoreDefaultConfig(): array
-    {
-        return $this->getPackageConfig('defaults', []);
-    }
-
-    /**
-     * Get the default client name.
-     *
-     * @return string
-     */
-    public function getDefaultStore(): string
-    {
-        return $this->getPackageConfig('default', 'default');
-    }
-
-    /**
-     * Get the configuration for a client.
-     *
-     * @param  string  $name
-     * @return array
-     *
-     * @throws InvalidArgumentException
-     */
-    protected function configuration(string $name): array
-    {
-        $name = $name ?: $this->getDefaultStore();
-        $config = $this->getPackageConfig("stores.$name");
-
-        if (null === $config) {
-            throw new InvalidArgumentException("CaptchaCode store [{$name}] not configured.");
-        }
-
-        return array_merge($this->getStoreDefaultConfig(), $config);
-    }
-
-    /**
      * Get a client by name.
      *
      * @param  string|null|integer  $name
@@ -136,33 +39,9 @@ class Manager extends IlluminateManager
         return $this->driver($name);
     }
 
-    public function getDefaultDriver(): string
-    {
-        return $this->getDefaultStore();
-    }
-
-    /**
-     * @inheritdoc
-     */
-    protected function createDriver($driver)
-    {
-        $config = $this->configuration($driver);
-
-        $storage = $this->makeStorage(($config['storage'] ?? []));
-        $generator = $this->makeGenerator(($config['generator'] ?? []));
-
-        $store = new Store($storage, $generator);
-
-        return $store
-            ->withDefaultTtl(($config['defaultTtl'] ?? 10 * 60))
-            ->withDefaultCodes(($config['defaultCodes'] ?? []));
-    }
-
-
     public function extendStorage($driver, Closure $callback): Manager
     {
         $this->storageCustomCreators[$driver] = $callback;
-
         return $this;
     }
 
@@ -235,5 +114,27 @@ class Manager extends IlluminateManager
     public function createDefaultGeneratorDriver(array $config): DefaultGenerator
     {
         return new DefaultGenerator($config['length'], ($config['string'] ?: null));
+    }
+
+    public function getDriversConfigKey(): string
+    {
+        return 'stores';
+    }
+
+    protected function makeDriver(array $config): Store
+    {
+        $storage = $this->makeStorage(($config['storage'] ?? []));
+        $generator = $this->makeGenerator(($config['generator'] ?? []));
+
+        $store = new Store($storage, $generator);
+
+        return $store
+            ->withDefaultTtl(($config['defaultTtl'] ?? 10 * 60))
+            ->withDefaultCodes(($config['defaultCodes'] ?? []));
+    }
+
+    protected function getPackageFacadeAccessor(): string
+    {
+        return CaptchaCode::getFacadeAccessor();
     }
 }

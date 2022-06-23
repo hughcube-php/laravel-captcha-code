@@ -10,7 +10,7 @@
     ],
     "require": {
         "php": "7.*|8.*",
-        "hughcube/laravel-service-support": "*"
+        "hughcube/laravel-service-support": "^1.0"
     },
     "require-dev": {
         "laravel/framework": "*",

@@ -10,7 +10,7 @@ namespace HughCube\Laravel\CaptchaCode;
 
 class ServiceProvider extends \HughCube\Laravel\ServiceSupport\ServiceProvider
 {
-    protected function getFacadeAccessor(): string
+    protected function getPackageFacadeAccessor(): string
     {
         return CaptchaCode::getFacadeAccessor();
     }
@@ -18,7 +18,7 @@ class ServiceProvider extends \HughCube\Laravel\ServiceSupport\ServiceProvider
     /**
      * @inheritDoc
      */
-    protected function createFacadeRoot($app)
+    protected function createPackageFacadeRoot($app)
     {
         return new Manager();
     }
