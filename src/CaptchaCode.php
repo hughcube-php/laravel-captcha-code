@@ -17,7 +17,6 @@ use HughCube\Laravel\ServiceSupport\LazyFacade;
  * @method static Store store(string $name = null)
  * @method static Manager extendGenerator($driver, Closure $callback)
  * @method static Manager extendStorage($driver, Closure $callback)
- *
  * @method static string getOrRand(string $key, int $ttl = null)
  * @method static null|string get(string $key)
  * @method static bool set(string $key, string $code, int $ttl = null)
@@ -35,7 +34,6 @@ class CaptchaCode extends LazyFacade
     {
         return 'captchaCode';
     }
-
 
     protected static function registerServiceProvider($app)
     {

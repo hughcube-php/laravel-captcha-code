@@ -23,12 +23,13 @@ class CacheStorage implements Storage
     /**
      * save a code.
      *
-     * @param  string  $key
-     * @param  string  $code
-     * @param  null  $ttl
+     * @param string $key
+     * @param string $code
+     * @param null   $ttl
+     *
+     * @throws InvalidArgumentException
      *
      * @return bool
-     * @throws InvalidArgumentException
      */
     public function set(string $key, string $code, $ttl = null): bool
     {
@@ -38,10 +39,11 @@ class CacheStorage implements Storage
     /**
      * Fetches a code.
      *
-     * @param  string  $key
+     * @param string $key
+     *
+     * @throws InvalidArgumentException
      *
      * @return mixed
-     * @throws InvalidArgumentException
      */
     public function get(string $key)
     {
@@ -51,10 +53,11 @@ class CacheStorage implements Storage
     /**
      * Remove a code.
      *
-     * @param  string  $key
+     * @param string $key
+     *
+     * @throws InvalidArgumentException
      *
      * @return bool
-     * @throws InvalidArgumentException
      */
     public function delete(string $key): bool
     {

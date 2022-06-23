@@ -37,8 +37,8 @@ class Store
     /**
      * Store constructor.
      *
-     * @param  Storage  $storage
-     * @param  Generator  $generator
+     * @param Storage   $storage
+     * @param Generator $generator
      */
     public function __construct(Storage $storage, Generator $generator)
     {
@@ -56,6 +56,7 @@ class Store
     public function withDefaultCodes(array $items): Store
     {
         $this->defaultCodes = $items;
+
         return $this;
     }
 
@@ -71,6 +72,7 @@ class Store
                 return $code;
             }
         }
+
         return null;
     }
 
@@ -91,18 +93,21 @@ class Store
     public function get(string $key)
     {
         $key = $this->buildKey($key);
+
         return $this->storage->get($key) ?: null;
     }
 
     public function set(string $key, string $code, int $ttl = null)
     {
         $ttl = null === $ttl ? $this->defaultTtl : $ttl;
+
         return $this->storage->set($key, $code, $ttl);
     }
 
     public function delete(string $key): bool
     {
         $key = $this->buildKey($key);
+
         return $this->storage->delete($key);
     }
 

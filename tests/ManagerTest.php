@@ -54,7 +54,6 @@ class ManagerTest extends TestCase
         $this->assertSame($storage, $property->getValue($store));
     }
 
-
     /**
      * @throws ReflectionException
      */
