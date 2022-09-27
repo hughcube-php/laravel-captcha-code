@@ -20,47 +20,52 @@ class CacheStorage implements Storage
         $this->cache = $cache;
     }
 
+    protected function buildKey($key): string
+    {
+        return sprintf('captcha-code:%s', $key);
+    }
+
     /**
      * save a code.
      *
-     * @param string $key
-     * @param string $code
-     * @param null   $ttl
-     *
-     * @throws InvalidArgumentException
+     * @param  string  $key
+     * @param  string  $code
+     * @param  null  $ttl
      *
      * @return bool
+     * @throws InvalidArgumentException
+     *
      */
     public function set(string $key, string $code, $ttl = null): bool
     {
-        return false !== $this->cache->set($key, $code, $ttl);
+        return false !== $this->cache->set($this->buildKey($key), $code, $ttl);
     }
 
     /**
      * Fetches a code.
      *
-     * @param string $key
-     *
-     * @throws InvalidArgumentException
+     * @param  string  $key
      *
      * @return mixed
+     * @throws InvalidArgumentException
+     *
      */
     public function get(string $key)
     {
-        return $this->cache->get($key);
+        return $this->cache->get($this->buildKey($key));
     }
 
     /**
      * Remove a code.
      *
-     * @param string $key
-     *
-     * @throws InvalidArgumentException
+     * @param  string  $key
      *
      * @return bool
+     * @throws InvalidArgumentException
+     *
      */
     public function delete(string $key): bool
     {
-        return $this->cache->delete($key);
+        return $this->cache->delete($this->buildKey($key));
     }
 }
