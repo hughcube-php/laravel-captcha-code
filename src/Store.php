@@ -76,13 +76,18 @@ class Store
         return null;
     }
 
-    public function getOrRand(string $key, int $ttl = null)
+    public function getOrRand(string $key, $ttl = null)
+    {
+        return $this->getOrSet($key, null, $ttl);
+    }
+
+    public function getOrSet(string $key, $code = null, $ttl = null)
     {
         if (null != ($existCode = $this->get($key))) {
             return $existCode;
         }
 
-        $code = $this->getDefaultCode($key) ?? $this->generator->get();
+        $code = $this->getDefaultCode($key) ?? $code ?? $this->generator->get();
         if (!$this->set($key, $code, $ttl)) {
             return false;
         }
@@ -97,7 +102,7 @@ class Store
         return $this->storage->get($key) ?: null;
     }
 
-    public function set(string $key, string $code, int $ttl = null)
+    public function set(string $key, string $code, $ttl = null)
     {
         $ttl = null === $ttl ? $this->defaultTtl : $ttl;
 

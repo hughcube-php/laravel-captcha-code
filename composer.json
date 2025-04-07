@@ -13,11 +13,12 @@
         "hughcube/laravel-service-support": "^1.0"
     },
     "require-dev": {
-        "laravel/framework": "*",
-        "laravel/lumen-framework": "*",
-        "squizlabs/php_codesniffer": "*",
+        "phpunit/phpunit": "*",
         "phpstan/phpstan": "*",
-        "orchestra/testbench": "*"
+        "laravel/framework": "*",
+        "orchestra/testbench": "*",
+        "laravel/lumen-framework": "*",
+        "squizlabs/php_codesniffer": "*"
     },
     "autoload": {
         "psr-4": {
@@ -30,11 +31,16 @@
         }
     },
     "scripts": {
-        "test": "phpunit --verbose --coverage-clover=coverage.clover",
+        "test": "phpunit",
         "phpstan": "phpstan analyse -vvv",
         "check-style": "phpcs -p --standard=PSR2 src/ -v",
         "fix-style": "phpcbf -p --standard=PSR2 src/ -v"
     },
     "minimum-stability": "dev",
-    "prefer-stable": true
+    "prefer-stable": true,
+    "config": {
+        "allow-plugins": {
+            "kylekatarnls/update-helper": true
+        }
+    }
 }

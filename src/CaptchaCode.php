@@ -18,6 +18,7 @@ use HughCube\Laravel\ServiceSupport\LazyFacade;
  * @method static Manager extendGenerator($driver, Closure $callback)
  * @method static Manager extendStorage($driver, Closure $callback)
  * @method static string getOrRand(string $key, int $ttl = null)
+ * @method static string getOrSet(string $key, string $code = null, int $ttl = null)
  * @method static null|string get(string $key)
  * @method static bool set(string $key, string $code, int $ttl = null)
  * @method static bool delete(string $key)

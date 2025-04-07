@@ -54,6 +54,25 @@ class StoreTest extends TestCase
         $this->assertNotSame($code, $store->getOrRand($key));
     }
 
+    public function testGetOrSet()
+    {
+        $key = serialize([__METHOD__, mt_rand()]);
+        $store = $this->getStore();
+        $store->delete($key);
+
+        $ttl = 5;
+        $preCode = range(1000, 9999);
+        $code = $store->getOrSet($key, $preCode, $ttl);
+
+        $this->assertNotEmpty($code);
+        $this->assertSame($code, $preCode);
+        $this->assertSame($code, $store->get($key));
+        $this->assertSame($code, $store->getOrSet($key, range(10000, 99999), $ttl));
+
+        sleep($ttl);
+        $this->assertNotSame($code, $store->getOrRand($key));
+    }
+
     public function testGet()
     {
         $key = serialize([__METHOD__, mt_rand()]);
